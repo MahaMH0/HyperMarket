@@ -15,7 +15,9 @@ namespace HyperMarket
         public int WorkingHours { get; set; }
         public string Phone { get; set; }
         public float Salary { get; set; }
-        public List<Product> Products=new List<Product>();
+
+        //public List<ProductNeed> Products=new List<ProductNeed>();
+
         //Check For Product's Existance
         public bool ProductIsExist(Product product,Category category)
         {
@@ -25,6 +27,7 @@ namespace HyperMarket
                 {
                     return true;
                 }
+
             }
             return false;
         }
@@ -33,21 +36,12 @@ namespace HyperMarket
         {
             customer.bill.CustomerId = customer.ID;
             customer.bill.CashierId = this.ID;
-            customer.bill.Products = this.Products;
-            foreach(Product p in this.Products)
+            foreach(ProductNeed p in customer.bill.Customer_Product)
             {
-                customer.bill.TotalPrice += p.PriceForSell;
+                customer.bill.TotalPrice += p.Product.PriceForBuy * p.Amount;
             }
         }
         //Add Product
-        public void AddProduct(Product p)
-        {
-            Products.Add(p);
-        }
-        //Remove Product
-        public void DeleteProduct(Product p)
-        {
-            Products.Remove(p);
-        }
+     
     }
 }

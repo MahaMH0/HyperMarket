@@ -12,7 +12,8 @@ namespace HyperMarket
        public int ID { get; set; }
        public string Phone { get; set; }
        public int NOPoints { get; set; }
-       public CustomerBill bill = new CustomerBill();
+       public Customer_Bill bill = new Customer_Bill();
+
        public void IncreasePoints()
         {
             ++NOPoints;

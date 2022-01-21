@@ -18,7 +18,6 @@ namespace HyperMarket
             {
                 BillId = NumberOfBills;
             }
-
         }
         public int CustomerId { get; set; }  
         public String CustomerName { get; set; }
