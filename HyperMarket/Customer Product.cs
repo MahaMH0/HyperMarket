@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpProject
 {
-    internal class Customer_Product :
+    internal class Customer_Product 
     {
     }
 }
