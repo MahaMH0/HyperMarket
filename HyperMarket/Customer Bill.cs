@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharpProject
+namespace HyperMarket
 {
     internal class Customer_Bill
     {
@@ -23,7 +23,7 @@ namespace CSharpProject
         public String CustomerName { get; set; }
         public String CashierId { get; set; }
         public string CashierName { get; set; }
-        // list of Customer_Product (waiting)
+        List<ProductNeed> Customer_Product { get; set; }
         public int TotalPrice { get; set; }
         public DateTime Created { get; set; }
         public Customer_Bill()
