@@ -18,30 +18,33 @@ namespace HyperMarket
             {
                 BillId = NumberOfBills;
             }
+
         }
-        public String CustomerId { get; set; }  
+        public int CustomerId { get; set; }  
         public String CustomerName { get; set; }
-        public String CashierId { get; set; }
+        public int CashierId { get; set; }
         public string CashierName { get; set; }
-        List<ProductNeed> Customer_Product { get; set; }
-        public int TotalPrice { get; set; }
+        public List<ProductNeed> Customer_Product = new List<ProductNeed>();
+        public decimal TotalPrice { get; set; }
         public DateTime Created { get; set; }
         public Customer_Bill()
         {
             NumberOfBills++;
         }
        
-        public void Add(/*Customer_Product*/)
-        {
-            
-        }
+       
         public void Edit(/*Customer_Product*/)
         {
             // For editing the amount of customer product "Buy"
         }
-        public void Delet(/*Customer_Product*/)
+        public void AddProduct(ProductNeed p)
         {
-
+            this.Customer_Product.Add(p);
+        }
+        //Remove Product
+        public void DeleteProduct(ProductNeed p)
+        {
+            this.Customer_Product.Remove(p);
         }
         public void FinalDeletForBill()
         {
