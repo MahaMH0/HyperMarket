@@ -9,7 +9,7 @@ namespace HyperMarket
     internal class Category
     {
         public string Name { get; set; }
-        //C-TwoDigits
+        //C-TwoDigit
         public string ID { get; set; }
         public List<Supplier> suppliers { get; set; }
         public List<Product> Products{ get; set; }
