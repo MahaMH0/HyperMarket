@@ -23,38 +23,15 @@ namespace HyperMarket
         public String CustomerName { get; set; }
         public int CashierId { get; set; }
         public string CashierName { get; set; }
-        public List<ProductNeed> Customer_Product = new List<ProductNeed>();
+        public List<ProductNeed> Customer_Product= new List<ProductNeed>();
         public decimal TotalPrice { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime CreatedTime ;
         public Customer_Bill()
         {
             NumberOfBills++;
+            CreatedTime = new DateTime();
+            Customer_Product = new List<ProductNeed>();
         }
-       
-       
-        public void Edit(/*Customer_Product*/)
-        {
-            // For editing the amount of customer product "Buy"
-        }
-        public void AddProduct(ProductNeed p)
-        {
-            this.Customer_Product.Add(p);
-        }
-        //Remove Product
-        public void DeleteProduct(ProductNeed p)
-        {
-            this.Customer_Product.Remove(p);
-        }
-        public void FinalDeletForBill()
-        {
-            NumberOfBills--;
-            //foreach(var i in /*list of Customer_Product*/)
-            //{
-            //    // Use delet function 
-            //}
-        }
-
-        //Pay -> Budget -->Amount Product ?????
 
     }
 }
