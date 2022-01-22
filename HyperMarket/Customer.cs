@@ -9,14 +9,15 @@ namespace HyperMarket
     internal class Customer
     {
        public string Name { get; set; }
-       public int ID { get; set; }
+        static int NumberOfCustomer = 1;
        public string Phone { get; set; }
-       public int NOPoints { get; set; }
-       public Customer_Bill bill = new Customer_Bill();
-
-       public void IncreasePoints()
+       public List<Customer_Bill> bills;
+       public int Points { get; set;}  
+       public Customer()
         {
-            ++NOPoints;
-        }
+            NumberOfCustomer++;
+            bills = new List<Customer_Bill>();
+        }     
+        public int ID = NumberOfCustomer; //Auto increment 
     }
 }
