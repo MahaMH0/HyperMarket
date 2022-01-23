@@ -11,16 +11,19 @@ namespace HyperMarket
 
         public string Name { get; set; }    
         // S-TwoDigits
-        public string ID { get; set; }
+        static int NumberOfSupplier = 1;
+        public int ID { get{return ID;} private set{ID = NumberOfSupplier;} }
         public List<string> PhoneNumbers;
-        public Supplier_Bill bill ;
-        public List<Product> Products ;
+        public List<Supplier_Bill> bills;
+        public Category category;
         public Supplier()
         {
+            NumberOfSupplier++;
             PhoneNumbers = new List<string>();
-            bill = new Supplier_Bill();
-            Products = new List<Product> ();
+            bills = new List<Supplier_Bill>();
+            category = new Category();
+            Name = "hamdy";
         }
-      // Category (name)
+       
     }
 }

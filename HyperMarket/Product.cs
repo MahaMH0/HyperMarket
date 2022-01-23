@@ -10,21 +10,19 @@ namespace HyperMarket
     internal class Product 
     {
         public string Name { get; set; }
+        static int NumberOfProduct = 1;
         public string Description { get; set; }
-        public int ID { get; set; }
+        public int ID { get{return ID;} private set{this.ID = NumberOfProduct;} }
         public decimal PriceForBuy{ get; set; }
         public decimal PriceForSell{ get; set; }
-
         public Category category { get; set; }
         public long Amount { get; set; }
         public DateTime ExpireDate { get; set; }
-        public void IncreaseAmount(long amount)
+        public Product()
         {
-            this.Amount += amount;
-        }
-        public void DecreaseAmount(long amount)
-        {
-            this.Amount -= amount;
+            NumberOfProduct++;
+            PriceForSell = 0;
+            PriceForBuy = 0;
         }
 
     } 

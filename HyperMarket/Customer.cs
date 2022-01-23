@@ -12,12 +12,13 @@ namespace HyperMarket
        static int NumberOfCustomer = 1;
        public string Phone { get; set; }
        public List<Customer_Bill> bills;
-       public int Points { get; set;}  
+       public Decimal Points { get; set;}  
        public Customer()
         {
             NumberOfCustomer++;
             bills = new List<Customer_Bill>();
-        }     
+        }    
+        
         public int ID = NumberOfCustomer; //Auto increment 
     }
 }

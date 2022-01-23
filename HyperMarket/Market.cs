@@ -8,7 +8,7 @@ namespace HyperMarket
 {
     internal class Market
     {
-         //singlton ISA
+        //singlton ISA
         public decimal Budget { get; set; }
         public string Name { get; set; }
         public List<Category> Categories;

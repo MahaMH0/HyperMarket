@@ -12,60 +12,149 @@ namespace HyperMarket
         public string UserName { get; set; }
         public string Password { get; set; }
         public int ID { get; set; }
-        public string NickName
+
+
+        public Manager()
         {
-            get
+            Name ="Admin";
+            UserName ="Admin";
+            Password = "Admin";
+            ID = 255;
+        }
+        //add new Cashier
+        public void AddCashier(Market market , Casher casher)
+        {
+            if(!market.Cashers.Contains(casher))
             {
-                return "Admin";
+                market.Cashers.Add(casher);
             }
         }
-        List<Supplier> Suppliers = new List<Supplier>();
-        List<Category> Categories = new List<Category>();
+        // add new Supplier
+        public void AddSupplier(Market market , Supplier supplier)
+        {
+            if(!SupplierIsExist(market , supplier))
+            {
+                market.Suppliers.Add(supplier);
+            }
+        }
+
+        //Add category to categories if is not exist
+        public void AddCategory(Market market , Category category)
+        {
+            if(!CategoryIsExist(market , category))
+            {
+                market.Categories.Add(category);
+            }
+        }
+
         //create Supplier Bill
-        public void CreateSupplierBill(Supplier supplier)
+       public void CreateBill(Supplier supplier)
         {
-            supplier.bill.SupplierId = supplier.ID;
-            supplier.bill.Products = supplier.Products;
-            supplier.bill.category = supplier.category;
-            foreach (Product p in supplier.Products)
-            {
-                supplier.bill.TotalPrice += p.PriceForSell;
-            }
+            Supplier_Bill Supplier_Bill = new Supplier_Bill();
+            Supplier_Bill.SupplierId = supplier.ID;
+            Supplier_Bill.SupplierName = supplier.Name;
+            supplier.bills.Add(Supplier_Bill);
         }
-        //Add Supplier
-        public void AddSupplier(Supplier supplier)
-        {
-            Suppliers.Add(supplier);
-        }
+
         //Remove Supplier
-        public void DeleteSupplier(Supplier supplier)
+        public void DeleteSupplier(Market market , Supplier supplier)
         {
-            Suppliers.Remove(supplier);
+            if(SupplierIsExist(market , supplier))
+            market.Suppliers.Remove(supplier);
         }
+
+        //Remove category
+        public void DeleteCategory(Market market , Category category)
+        {
+            if(CategoryIsExist(market , category))
+            market.Categories.Remove(category);
+        }
+
         //Search For Supplier
-        public bool SupplierIsExist(Supplier supplier)
+        public bool SupplierIsExist(Market market, Supplier supplier)
         {
-            foreach(Supplier S in Suppliers)
+            return market.Suppliers.Contains(supplier);
+        }
+
+        //search for category
+        public bool CategoryIsExist(Market market, Category category)
+        {
+            return market.Categories.Contains(category);
+        }
+
+        //Add product to supplier-list
+        public void AddSupplierProduct(Market market , Supplier supplier , ProductNeed product)
+        {
+            int lastBillIndex = supplier.bills.Count - 1; 
+            if(supplier.bills[lastBillIndex].Supplier_Product.Contains(product))
             {
-                if (S.SupplierId == supplier.ID)
-                    return true;
+                ProductNeed che = product;
+                int ProductIndex = supplier.bills[lastBillIndex].Supplier_Product.IndexOf(product);
+                che.AmountNeeded += supplier.bills[lastBillIndex].Supplier_Product[ProductIndex].AmountNeeded;
+                RemoveSupplierProduct(supplier , product);
+                AddSupplierProduct(market ,supplier , che);
             }
-            return false;
+            else
+            {
+                decimal oldTotalPrice = supplier.bills[lastBillIndex].TotalPrice;
+
+                decimal newTotalPrice = 0;
+
+                newTotalPrice += product.AmountNeeded * product.Product.PriceForBuy;
+                if(CheckBudgedCovered(market , newTotalPrice))
+                { 
+                    supplier.bills[lastBillIndex].Supplier_Product.Add(product);
+                    supplier.bills[lastBillIndex].TotalPrice = newTotalPrice;
+                }
+                else
+                {
+                    //warning if the budget
+                    throw new Exception("budget not cover this amount of products");
+                }
+                
+            }
         }
-        //Add New Category
-        public void AddNewCategory(Category newcategory)
+
+        //Remove product from supplier bill
+        public void RemoveSupplierProduct(Supplier supplier , ProductNeed product)
         {
-            Categories.Add(newcategory);
+            int lastBillIndex = supplier.bills.Count - 1; 
+            supplier.bills[lastBillIndex].Supplier_Product.Remove(product);
+
+            int productIndex = supplier.bills[lastBillIndex].Supplier_Product.IndexOf(product);
+
+            int amountNeeded = supplier.bills[lastBillIndex].Supplier_Product[productIndex].AmountNeeded;
+
+            decimal priceOfbuy = supplier.bills[lastBillIndex].Supplier_Product[productIndex].Product.PriceForBuy;
+
+            decimal priceOfRemovedProduct = priceOfbuy * (decimal) amountNeeded ;
+            
+            supplier.bills[lastBillIndex].TotalPrice -= priceOfRemovedProduct;
+
         }
-        //Add New Product
-        public void AddNewProduct(Category category,Product newproduct)
+       //check budget covered 
+        public bool CheckBudgedCovered(Market market ,decimal billprice)
         {
-            category.AddProduct(newproduct);
+            decimal total = 0;
+           return ((market.Budget - billprice) >= 0) ? true : false;
         }
-        //Pay Salaries For Employees
-        public void PaySalary(Casher casher)
+        //paymnet to supplier
+        public void pay(Market market , Supplier supplier)
         {
-            casher.Salary = 5000;
+            //decrease Budget amount
+            int lastBillIndex = supplier.bills.Count - 1;
+            market.Budget -= supplier.bills[lastBillIndex].TotalPrice;
+            
+            //increase amount of product in Category
+            foreach(ProductNeed item in supplier.bills[lastBillIndex].Supplier_Product)
+            {
+               Category cat = item.Product.category;
+               int indexofcat = market.Categories.IndexOf(cat);
+               int indexOfProduct =  market.Categories[indexofcat].Products.IndexOf(item.Product);
+               market.Categories[indexofcat].Products[indexOfProduct].Amount += item.AmountNeeded;
+            }
+
+
         }
     }
 }

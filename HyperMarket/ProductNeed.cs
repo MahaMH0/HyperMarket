@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HyperMarket
 {
+
     internal struct ProductNeed
     {
         public Product Product { get; set; }
-        public int Amount { get; set; }
-
+        public int AmountNeeded { get; set; }
     }
 }

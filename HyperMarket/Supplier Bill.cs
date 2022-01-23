@@ -8,42 +8,19 @@ namespace HyperMarket
 {
     internal class Supplier_Bill
     {
-        public Supplier SupplierData { get; set; }
-        static int NumberOfSupplierBills = 0;
-        public int SupplierBillID
-        {
-            get
-            {
-                return SupplierBillID;
-
-            }
-            set
-            {
-                SupplierBillID = NumberOfSupplierBills;
-            }
-        }
-        public DateTime CreationDate { get; set; }
+        static int NumberOfBills = 0;
+        public int BillId {get{return BillId;} private set{BillId = NumberOfBills;}}
+        public int SupplierId { get; set; }  
+        public String SupplierName { get; set; }
+        public List<ProductNeed> Supplier_Product= new List<ProductNeed>();
+        public decimal TotalPrice { get; set; }
+        public DateTime CreatedTime ;
         public Supplier_Bill()
         {
-            NumberOfSupplierBills++;
+            NumberOfBills++;
+            CreatedTime = new DateTime();
+            Supplier_Product = new List<ProductNeed>();
         }
-        public List<ProductNeed> Products  = new List<ProductNeed>();
-
-        public decimal TotalPrice { get; set; }
-
-        public void Add(/*Stock_Product*/)
-        {
-
-        }
-        public void Edit(/*Stock_Product*/)
-        {
-            // For editing the amount of customer product "Buy"
-        }
-        public void Delet(/*Stock_Product*/)
-        {
-
-        }
-        //pay -> budget -- Amount of products || category
 
     }
 }

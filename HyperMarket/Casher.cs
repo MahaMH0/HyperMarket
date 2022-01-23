@@ -93,11 +93,11 @@ namespace HyperMarket
         //edit amount of existance product
         public void EditProduct(ProductNeed pnew , Customer customer)
         {   
-            if(pnew.AmountNeeded >0)
+            if(pnew.AmountNeeded >0 && ProductCoverd(pnew , pnew.Product.category))
             { 
-                 int index = customer.bills[customer.bills.Count - 1].Customer_Product.IndexOf(pnew);
-                if(index>0)
-                customer.bills[customer.bills.Count - 1].Customer_Product[index].AmountNeeded = pnew.AmountNeeded;
+               //int index = customer.bills[customer.bills.Count - 1].Customer_Product.IndexOf(pnew);
+               DeleteProduct(pnew , customer);
+               customer.bills[customer.bills.Count - 1].Customer_Product.Add(pnew);
             }
             else
             {
@@ -115,13 +115,13 @@ namespace HyperMarket
             if(customer.bills[customer.bills.Count - 1].Customer_Product.Contains(p)) // 
             {
                 int index = customer.bills[customer.bills.Count - 1].Customer_Product.IndexOf(p);
-                if(index>0)
+                
                 check.AmountNeeded += customer.bills[customer.bills.Count - 1].Customer_Product[index].AmountNeeded;
                 
                 if (this.ProductCoverd(check , check.Product.category)) 
                 { 
-                    
-                    customer.bills[customer.bills.Count - 1].Customer_Product[index].AmountNeeded += p.AmountNeeded;
+                     DeleteProduct(p , customer);
+                     customer.bills[customer.bills.Count - 1].Customer_Product.Add(check);
                 }
                 else
                 { 
@@ -172,10 +172,16 @@ namespace HyperMarket
               market.Categories[catIndex].Products[ProdIndex].Amount -= item.AmountNeeded;
 
             }
+            //calculate customer Points
+            decimal revenu = 0;
+            foreach(ProductNeed item in customer.bills[customer.bills.Count - 1].Customer_Product)
+            {
+                revenu += (item.Product.PriceForSell - item.Product.PriceForBuy);
+            }
+            customer.Points += revenu * (Decimal)0.01; //points is 10% of revenue 
 
         }
 
-        
-     
+
     }
 }

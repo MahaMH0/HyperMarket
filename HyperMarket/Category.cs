@@ -9,38 +9,16 @@ namespace HyperMarket
     internal class Category
     {
         public string Name { get; set; }
-        //C-TwoDigit
-        public string ID { get; set; }
-        public List<Supplier> suppliers { get; set; }
+         //C-TwoDigit
+        static int numberOfCategory = 1;
+        public int ID { get{return ID;} private set{this.ID = numberOfCategory;} }
         public List<Product> Products{ get; set; }
-        public void AddProduct(Product product)
+        public Category() { numberOfCategory++;}
+        public Category(string Name , int ID )
         {
-            if (this.Products.Contains(product))
-            {
-                foreach (Product product1 in Products)
-                {
-                    if (product.ID == product1.ID)
-                            product1.IncreaseAmount(product.Amount);
-                }
-            }
-            else
-            {
-                this.Products.Add(product);
-            }
-
-        }
-        public void RemoveProduct(Product product)
-        {
-            this.Products.Remove(product);
-        }
-        public Category(string Name , string ID ,List<Supplier> suppliers)
-        {
+            numberOfCategory++;
             this.Name = Name;
             this.ID = ID;   
-            foreach(var i in suppliers)
-            {
-                this.suppliers.Add(i);  
-            }
         }
         public override string ToString()
         {
