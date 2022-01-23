@@ -12,9 +12,15 @@ namespace HyperMarket
         public string Name { get; set; }    
         // S-TwoDigits
         public string ID { get; set; }
-        public List<string> PhoneNumbers { get; set; }
-
-        // Category (name)
-
+        public List<string> PhoneNumbers;
+        public Supplier_Bill bill ;
+        public List<Product> Products ;
+        public Supplier()
+        {
+            PhoneNumbers = new List<string>();
+            bill = new Supplier_Bill();
+            Products = new List<Product> ();
+        }
+      // Category (name)
     }
 }

@@ -27,8 +27,9 @@ namespace HyperMarket
         {
             NumberOfSupplierBills++;
         }
-      //  public List</*Stock Products*/> StockProuct { get; set; }
-        public double TotalPrice { get; set; }
+        public List<ProductNeed> Products  = new List<ProductNeed>();
+
+        public decimal TotalPrice { get; set; }
 
         public void Add(/*Stock_Product*/)
         {

@@ -13,7 +13,6 @@ namespace HyperMarket
         public string ID { get; set; }
         public List<Supplier> suppliers { get; set; }
         public List<Product> Products{ get; set; }
-
         public void AddProduct(Product product)
         {
             if (this.Products.Contains(product))

@@ -9,7 +9,7 @@ namespace HyperMarket
     internal class Customer
     {
        public string Name { get; set; }
-        static int NumberOfCustomer = 1;
+       static int NumberOfCustomer = 1;
        public string Phone { get; set; }
        public List<Customer_Bill> bills;
        public int Points { get; set;}  

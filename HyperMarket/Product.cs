@@ -27,6 +27,5 @@ namespace HyperMarket
             this.Amount -= amount;
         }
 
-    }
-   
+    } 
 }

@@ -32,6 +32,5 @@ namespace HyperMarket
             CreatedTime = new DateTime();
             Customer_Product = new List<ProductNeed>();
         }
-
     }
 }
