@@ -8,7 +8,7 @@ namespace HyperMarket
 {
     internal class Supplier
     {
-
+         
         public string Name { get; set; }    
         // S-TwoDigits
         static int NumberOfSupplier = 1;
