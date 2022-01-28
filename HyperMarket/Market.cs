@@ -23,6 +23,7 @@ namespace HyperMarket
             Customers = new List<Customer>();
             Suppliers = new List<Supplier>();
             Cashers = new List<Casher>();
+
         }
     }
 }
