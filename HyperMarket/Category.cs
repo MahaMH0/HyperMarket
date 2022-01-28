@@ -13,8 +13,11 @@ namespace HyperMarket
         static int numberOfCategory = 1;
         public int ID { get{return ID;} private set{this.ID = numberOfCategory;} }
         public List<Product> Products{ get; set; }
-        public Category() { numberOfCategory++;}
-        public Category(string Name , int ID )
+        public Category() 
+        { 
+            numberOfCategory++;
+        }
+        public Category( string Name , int ID )
         {
             numberOfCategory++;
             this.Name = Name;

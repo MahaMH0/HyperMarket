@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HyperMarket
-{
-    internal class Market
+{      
+    internal sealed class Market
     {
         //singlton ISA
-        public decimal Budget { get; set; }
+        public double Budget { get; set; }
         public string Name { get; set; }
         public List<Category> Categories;
         public List<Customer> Customers;
         public List<Supplier> Suppliers ;
         public List<Casher> Cashers ;
-        public Market()
+        private Market() 
         {
             Budget = 1500000;
             Name = "United Group";
@@ -25,5 +25,17 @@ namespace HyperMarket
             Cashers = new List<Casher>();
 
         }
+        private static Market mark = null;
+        public static Market market { 
+        get {
+                if (mark == null)
+                {
+                    mark = new Market();
+                }
+                    return mark;
+            }
+        }
+       
+
     }
 }

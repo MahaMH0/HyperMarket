@@ -52,7 +52,17 @@ namespace HyperMarket
         }
 
         // check existance of product and it's amount covered the customer Need
-
+        private Category retCat(string catName)
+        {
+            foreach (Category item in Market.market.Categories)
+            {
+                if (item.ToString() == catName)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
         public bool ProductCoverd(ProductNeed product,Category category)
         {
             foreach(Product p in category.Products)
@@ -68,15 +78,15 @@ namespace HyperMarket
         }
   
         //check if customer is not exist in customer List or not before adding
-        public void AddCustomer(Market market, Customer customer)
+        public void AddCustomer( Customer customer)
         {
-           if(!market.Customers.Contains(customer))
+           if(!Market.market.Customers.Contains(customer))
             {
-                market.Customers.Add(customer);
+                Market.market.Customers.Add(customer);
             }
 
-            int index = market.Customers.IndexOf(customer);
-            customer = market.Customers[index];
+            int index = Market.market.Customers.IndexOf(customer);
+            customer = Market.market.Customers[index];
         }
         //create Customer Bill
         public void CreateBill(Customer customer)
@@ -93,7 +103,8 @@ namespace HyperMarket
         //edit amount of existance product
         public void EditProduct(ProductNeed pnew , Customer customer)
         {   
-            if(pnew.AmountNeeded >0 && ProductCoverd(pnew , pnew.Product.category))
+
+            if(pnew.AmountNeeded >0 && ProductCoverd(pnew , retCat(pnew.Product.category)))
             { 
                //int index = customer.bills[customer.bills.Count - 1].Customer_Product.IndexOf(pnew);
                DeleteProduct(pnew , customer);
@@ -118,7 +129,7 @@ namespace HyperMarket
                 
                 check.AmountNeeded += customer.bills[customer.bills.Count - 1].Customer_Product[index].AmountNeeded;
                 
-                if (this.ProductCoverd(check , check.Product.category)) 
+                if ( this.ProductCoverd(check , retCat( check.Product.category))) 
                 { 
                      DeleteProduct(p , customer);
                      customer.bills[customer.bills.Count - 1].Customer_Product.Add(check);
@@ -129,7 +140,7 @@ namespace HyperMarket
                 }
             }
             // for first time adding product to our basket
-            else if (this.ProductCoverd(p , p.Product.category))
+            else if (this.ProductCoverd(p , retCat(p.Product.category)))
             {   
                     customer.bills[customer.bills.Count - 1].Customer_Product.Add(p);
             }
@@ -151,34 +162,34 @@ namespace HyperMarket
         }
 
         //Complete the payment basket list of product every prodct have amount and price 
-        // and decrease amount of stock products in market
-        public void pay(Market market , Customer customer)
+        // and decrease amount of stock products in Market.market
+        public void pay( Customer customer)
         {
             //increase budget 
-           decimal total = 0;
+           double total = 0;
             foreach(ProductNeed p in customer.bills[customer.bills.Count - 1].Customer_Product)
             {
                 total += (p.AmountNeeded * p.Product.PriceForBuy);
             }
             customer.bills[customer.bills.Count - 1].TotalPrice = total;
 
-            market.Budget += total;
+            Market.market.Budget += total;
 
             // decrease amount of products
             foreach (ProductNeed item in customer.bills[customer.bills.Count - 1].Customer_Product)
             {
-              int catIndex = market.Categories.IndexOf(item.Product.category);
-              int ProdIndex = market.Categories[catIndex].Products.IndexOf(item.Product);  
-              market.Categories[catIndex].Products[ProdIndex].Amount -= item.AmountNeeded;
+              int catIndex = Market.market.Categories.IndexOf(retCat(item.Product.category));
+              int ProdIndex = Market.market.Categories[catIndex].Products.IndexOf(item.Product);  
+              Market.market.Categories[catIndex].Products[ProdIndex].Amount -= item.AmountNeeded;
 
             }
             //calculate customer Points
-            decimal revenu = 0;
+            double revenu = 0;
             foreach(ProductNeed item in customer.bills[customer.bills.Count - 1].Customer_Product)
             {
                 revenu += (item.Product.PriceForSell - item.Product.PriceForBuy);
             }
-            customer.Points += revenu * (Decimal)0.01; //points is 10% of revenue 
+            customer.Points += revenu * (double)0.01; //points is 10% of revenue 
 
         }
 
