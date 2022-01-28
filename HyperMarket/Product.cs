@@ -16,24 +16,38 @@ namespace HyperMarket
         public double PriceForBuy{ get; set; }
         public double PriceForSell{ get; set; }
         public string category { get; set; } //category id
+
+        public bool IsExist = false; // this product exist in my market or not 
         public long Amount { get; set; }
         public DateTime ExpireDate { get; set; }
-        public Product(double PriceForBuy, double PriceForSell, long Amount, string Name  , DateTime ExpireDate , string category)
+        //for manager
+        public Product(int ID ,double PriceForBuy, double PriceForSell, long Amount, string Name  , DateTime ExpireDate , string category)
         {
-            NumberOfProduct++;
+
+            this.ID = ID;
             this.PriceForBuy = PriceForBuy;
-            this.Amount = Amount;  
+            this.Amount = Amount;
             this.Name = Name;
-            this.PriceForSell = PriceForBuy;
+            this.PriceForSell = PriceForSell;
             this.ExpireDate = ExpireDate;
             this.category = category;
         }
-        public Product()
+        //increment ID with supplier x adding new product doesn't exist in our market reference list
+        public Product(string name , double priceForSell , string category)
         {
+
             NumberOfProduct++;
-            PriceForSell = 0;
-            PriceForBuy = 0;
-            ExpireDate = DateTime.Now;
+            this.Name = name;
+            this.category =category;
+            this.PriceForSell=priceForSell;
+        }
+        // without increment the id it will assign by existing one for supplier Y
+        public Product(string name, double priceForSell, string category , int Id)
+        {
+            this.Name = name;
+            this.category = category;
+            this.PriceForSell = priceForSell;
+            this.ID = Id;
         }
 
     } 

@@ -84,6 +84,7 @@ namespace HyperMarket
         //Search For Supplier
         public bool SupplierIsExist(Supplier supplier)
         {
+
             return Market.market.Suppliers.Contains(supplier);
         }
 

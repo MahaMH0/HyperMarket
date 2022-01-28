@@ -159,6 +159,7 @@ namespace HyperMarket
         public void FinalDeletForBill(Customer customer)
         {
             customer.bills.Remove(customer.bills[customer.bills.Count - 1]);
+
         }
 
         //Complete the payment basket list of product every prodct have amount and price 

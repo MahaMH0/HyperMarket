@@ -11,5 +11,6 @@ namespace HyperMarket
     {
         public Product Product { get; set; }
         public int AmountNeeded { get; set; }
+
     }
 }

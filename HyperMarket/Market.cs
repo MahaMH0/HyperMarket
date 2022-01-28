@@ -24,6 +24,7 @@ namespace HyperMarket
             Suppliers = new List<Supplier>();
             Cashers = new List<Casher>();
 
+
         }
         private static Market mark = null;
         public static Market market { 

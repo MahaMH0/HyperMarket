@@ -22,5 +22,6 @@ namespace HyperMarket
             Supplier_Product = new List<ProductNeed>();
         }
 
+
     }
 }

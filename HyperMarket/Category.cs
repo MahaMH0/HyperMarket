@@ -25,7 +25,8 @@ namespace HyperMarket
         }
         public override string ToString()
         {
-            return $"Name of category => {Name}\nID of category => {ID}\n";
+            return $"{Name}{ID}";
+
         }
     }
 }

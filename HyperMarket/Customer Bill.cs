@@ -8,6 +8,7 @@ namespace HyperMarket
 {
     internal class Customer_Bill
     { 
+
         static int NumberOfBills = 0;
         public int BillId { get{return BillId;} private set{BillId = NumberOfBills;}}
         public int CustomerId { get; set; }  
