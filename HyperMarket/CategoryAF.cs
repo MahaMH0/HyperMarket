@@ -10,35 +10,16 @@ using System.Windows.Forms;
 
 namespace HyperMarket
 {
-    public partial class CashierAF : Form
+    public partial class CategoryAF : Form
     {
-        public CashierAF()
+        public CategoryAF()
         {
             InitializeComponent();
-            
         }
 
         private void Exit_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void CashierPanel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
-      
-
-        private void gunaElipsePanel2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void gunaElipsePanel2_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
